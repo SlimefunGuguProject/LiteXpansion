@@ -3,17 +3,16 @@ package dev.j3fftw.litexpansion;
 import dev.j3fftw.litexpansion.resources.ThoriumResource;
 import dev.j3fftw.litexpansion.service.MetricsService;
 import dev.j3fftw.litexpansion.ticker.PassiveElectricRemovalTicker;
-import dev.j3fftw.litexpansion.utils.Constants;
 import dev.j3fftw.litexpansion.utils.Reflections;
 import dev.j3fftw.litexpansion.uumatter.UUMatter;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.researches.Research;
+import lombok.Getter;
 import net.guizhanss.guizhanlibplugin.updater.GuizhanUpdater;
 import org.bstats.MetricsBase;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.NamespacedKey;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
@@ -22,6 +21,7 @@ import java.util.logging.Level;
 
 public class LiteXpansion extends JavaPlugin implements SlimefunAddon {
 
+    @Getter
     private static LiteXpansion instance;
 
     private final MetricsService metricsService = new MetricsService();
@@ -224,10 +224,6 @@ public class LiteXpansion extends JavaPlugin implements SlimefunAddon {
 
     public String getBugTrackerURL() {
         return "https://github.com/SlimefunGuguProject/LiteXpansion/issues";
-    }
-
-    public static LiteXpansion getInstance() {
-        return instance;
     }
 
     private static void setInstance(LiteXpansion ins) {
