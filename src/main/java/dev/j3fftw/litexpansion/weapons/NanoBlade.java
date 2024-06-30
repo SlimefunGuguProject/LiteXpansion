@@ -47,23 +47,20 @@ public class NanoBlade extends SimpleSlimefunItem<ItemUseHandler> implements Rec
     public ItemUseHandler getItemHandler() {
         return event -> {
             final ItemMeta nanoBladeMeta = event.getItem().getItemMeta();
-            final Enchantment enchantment = Enchantment.getByKey(Constants.GLOW_ENCHANT);
-            boolean enabled = !nanoBladeMeta.removeEnchant(enchantment);
+            boolean enabled = PersistentDataAPI.getBoolean(nanoBladeMeta, Constants.NANO_BLADE_ENABLED);
 
             int damage;
 
             if (enabled && getItemCharge(event.getItem()) > getRemovedChargePerTick()) {
-                nanoBladeMeta.addEnchant(enchantment, 1, false);
                 nanoBladeMeta.setDisplayName(ChatColor.DARK_GREEN + "纳米剑" + ChatColor.GREEN + " (开)");
+                PersistentDataAPI.setBoolean(nanoBladeMeta, Constants.NANO_BLADE_ENABLED, true);
 
                 damage = 13; // Base is 7 so 7 + 13 = 20
             } else {
                 nanoBladeMeta.setDisplayName(ChatColor.DARK_GREEN + "纳米剑" + ChatColor.RED + " (关)");
-
+                PersistentDataAPI.setBoolean(nanoBladeMeta, Constants.NANO_BLADE_ENABLED, false);
                 damage = -3; // Base is 7 so 7 - 3 = 4
             }
-
-            PersistentDataAPI.setBoolean(nanoBladeMeta, Constants.NANO_BLADE_ENABLED, enabled);
 
             nanoBladeMeta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
             nanoBladeMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE,
@@ -90,6 +87,6 @@ public class NanoBlade extends SimpleSlimefunItem<ItemUseHandler> implements Rec
     public boolean isEnabled(@Nonnull ItemMeta meta) {
         final Optional<Boolean> opt = Utils.getOptionalBoolean(meta, Constants.NANO_BLADE_ENABLED);
 
-        return (opt.isPresent() && opt.get()) || meta.hasEnchant(Enchantment.getByKey(Constants.GLOW_ENCHANT));
+        return opt.isPresent() && opt.get();
     }
 }
