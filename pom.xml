@@ -28,10 +28,10 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.StarWishsama</groupId>
-            <artifactId>Slimefun4</artifactId>
-            <version>f30bdf27be</version>
-            <scope>provided</scope>
+	    <groupId>com.github.SlimefunGuguProject</groupId>
+	    <artifactId>Slimefun4</artifactId>
+	    <version>2024.3</version>
+	    <scope>provided</scope>
         </dependency>
 
         <dependency>
