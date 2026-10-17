@@ -14,13 +14,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.annotation.Nonnull;
-import java.util.Optional;
 import java.util.UUID;
 
 public class NanoBlade extends SimpleSlimefunItem<ItemUseHandler> implements Rechargeable, PassiveElectricRemoval {
@@ -47,17 +45,18 @@ public class NanoBlade extends SimpleSlimefunItem<ItemUseHandler> implements Rec
     public ItemUseHandler getItemHandler() {
         return event -> {
             final ItemMeta nanoBladeMeta = event.getItem().getItemMeta();
-            final Enchantment enchantment = Enchantment.getByKey(Constants.GLOW_ENCHANT);
-            boolean enabled = !nanoBladeMeta.removeEnchant(enchantment);
+            boolean currentState = PersistentDataAPI.getBoolean(nanoBladeMeta, Constants.NANO_BLADE_ENABLED);
+            boolean enabled = !currentState;
 
             int damage;
 
             if (enabled && getItemCharge(event.getItem()) > getRemovedChargePerTick()) {
-                nanoBladeMeta.addEnchant(enchantment, 1, false);
+                nanoBladeMeta.setEnchantmentGlintOverride(true);
                 nanoBladeMeta.setDisplayName(ChatColor.DARK_GREEN + "纳米剑" + ChatColor.GREEN + " (开)");
 
                 damage = 13; // Base is 7 so 7 + 13 = 20
             } else {
+                nanoBladeMeta.setEnchantmentGlintOverride(false);
                 nanoBladeMeta.setDisplayName(ChatColor.DARK_GREEN + "纳米剑" + ChatColor.RED + " (关)");
 
                 damage = -3; // Base is 7 so 7 - 3 = 4
@@ -66,6 +65,7 @@ public class NanoBlade extends SimpleSlimefunItem<ItemUseHandler> implements Rec
             PersistentDataAPI.setBoolean(nanoBladeMeta, Constants.NANO_BLADE_ENABLED, enabled);
 
             nanoBladeMeta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
+            // UUID-form modifier keeps 1.20.5/1.20.6 support; the NamespacedKey ctor is 1.21+
             nanoBladeMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE,
                 new AttributeModifier(UUID.randomUUID(), Attribute.GENERIC_ATTACK_DAMAGE.getKey().getKey(), damage,
                     AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND
@@ -88,8 +88,6 @@ public class NanoBlade extends SimpleSlimefunItem<ItemUseHandler> implements Rec
 
     @Override
     public boolean isEnabled(@Nonnull ItemMeta meta) {
-        final Optional<Boolean> opt = Utils.getOptionalBoolean(meta, Constants.NANO_BLADE_ENABLED);
-
-        return (opt.isPresent() && opt.get()) || meta.hasEnchant(Enchantment.getByKey(Constants.GLOW_ENCHANT));
+        return Utils.getOptionalBoolean(meta, Constants.NANO_BLADE_ENABLED).orElse(false);
     }
 }

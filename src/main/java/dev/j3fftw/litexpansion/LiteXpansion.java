@@ -3,17 +3,16 @@ package dev.j3fftw.litexpansion;
 import dev.j3fftw.litexpansion.resources.ThoriumResource;
 import dev.j3fftw.litexpansion.service.MetricsService;
 import dev.j3fftw.litexpansion.ticker.PassiveElectricRemovalTicker;
-import dev.j3fftw.litexpansion.utils.Constants;
 import dev.j3fftw.litexpansion.utils.Reflections;
 import dev.j3fftw.litexpansion.uumatter.UUMatter;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.researches.Research;
-import net.guizhanss.guizhanlibplugin.updater.GuizhanUpdater;
+import net.guizhanss.guizhanlib.minecraft.utils.MinecraftVersionUtil;
+import net.guizhanss.minecraft.guizhanlib.updater.GuizhanUpdater;
 import org.bstats.MetricsBase;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.NamespacedKey;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
@@ -30,9 +29,16 @@ public class LiteXpansion extends JavaPlugin implements SlimefunAddon {
     public void onEnable() {
         setInstance(this);
 
+        if (MinecraftVersionUtil.isBefore(1, 20, 5)) {
+            getLogger().log(Level.SEVERE, "本插件需要在 1.20.5 及以上版本运行！");
+            getLogger().log(Level.SEVERE, "请使用旧版本插件并关闭自动更新，或更新服务端版本。");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
         if (!getServer().getPluginManager().isPluginEnabled("GuizhanLibPlugin")) {
             getLogger().log(Level.SEVERE, "本插件需要 鬼斩前置库插件(GuizhanLibPlugin) 才能运行!");
-            getLogger().log(Level.SEVERE, "从此处下载: https://50l.cc/gzlib");
+            getLogger().log(Level.SEVERE, "从此处下载: https://50L.cc/gzlib");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
@@ -116,100 +122,100 @@ public class LiteXpansion extends JavaPlugin implements SlimefunAddon {
 
     private void setupResearches() {
         new Research(new NamespacedKey(this, "sanitizing_foots"),
-            696969, "合成食物", 45)
-            .addItems(Items.FOOD_SYNTHESIZER)
-            .register();
+                696969, "合成食物", 45)
+                .addItems(Items.FOOD_SYNTHESIZER)
+                .register();
 
         new Research(new NamespacedKey(this, "superalloys"),
-            696970, "超级合金", 35)
-            .addItems(Items.THORIUM, Items.MAG_THOR, Items.IRIDIUM, Items.ADVANCED_ALLOY, Items.MIXED_METAL_INGOT,
-                Items.REFINED_IRON)
-            .register();
+                696970, "超级合金", 35)
+                .addItems(Items.THORIUM, Items.MAG_THOR, Items.IRIDIUM, Items.ADVANCED_ALLOY, Items.MIXED_METAL_INGOT,
+                        Items.REFINED_IRON)
+                .register();
 
         new Research(new NamespacedKey(this, "super_hot_fire"),
-            696971, "热火朝天", 31)
-            .addItems(Items.NANO_BLADE, Items.ELECTRIC_CHESTPLATE)
-            .register();
+                696971, "热火朝天", 31)
+                .addItems(Items.NANO_BLADE, Items.ELECTRIC_CHESTPLATE)
+                .register();
 
         new Research(new NamespacedKey(this, "machinereee"),
-            696972, "机器~~~~~~", 30)
-            .addItems(Items.METAL_FORGE, Items.REFINED_SMELTERY, Items.RUBBER_SYNTHESIZER_MACHINE, Items.MANUAL_MILL,
-                Items.GENERATOR)
-            .register();
+                696972, "机器~~~~~~", 30)
+                .addItems(Items.METAL_FORGE, Items.REFINED_SMELTERY, Items.RUBBER_SYNTHESIZER_MACHINE, Items.MANUAL_MILL,
+                        Items.GENERATOR)
+                .register();
 
         new Research(new NamespacedKey(this, "the_better_panel"),
-            696973, "更好的太阳能板", 45)
-            .addItems(Items.ADVANCED_SOLAR_PANEL, Items.ULTIMATE_SOLAR_PANEL, Items.HYBRID_SOLAR_PANEL)
-            .register();
+                696973, "更好的太阳能板", 45)
+                .addItems(Items.ADVANCED_SOLAR_PANEL, Items.ULTIMATE_SOLAR_PANEL, Items.HYBRID_SOLAR_PANEL)
+                .register();
 
         new Research(new NamespacedKey(this, "does_this_even_matter"),
-            696974, "这物质真的重要吗", 150)
-            .addItems(Items.UU_MATTER, Items.SCRAP, Items.MASS_FABRICATOR_MACHINE, Items.RECYCLER)
-            .register();
+                696974, "这物质真的重要吗", 150)
+                .addItems(Items.UU_MATTER, Items.SCRAP, Items.MASS_FABRICATOR_MACHINE, Items.RECYCLER)
+                .register();
 
         new Research(new NamespacedKey(this, "what_a_configuration"),
-            696975, "配置器", 39)
-            .addItems(Items.CARGO_CONFIGURATOR)
-            .register();
+                696975, "配置器", 39)
+                .addItems(Items.CARGO_CONFIGURATOR)
+                .register();
 
         new Research(new NamespacedKey(this, "platings"),
-            696976, "板", 40)
-            .addItems(Items.IRIDIUM_PLATE, Items.COPPER_PLATE, Items.TIN_PLATE, Items.DIAMOND_PLATE, Items.IRON_PLATE,
-                Items.GOLD_PLATE, Items.THORIUM_PLATE)
-            .register();
+                696976, "板", 40)
+                .addItems(Items.IRIDIUM_PLATE, Items.COPPER_PLATE, Items.TIN_PLATE, Items.DIAMOND_PLATE, Items.IRON_PLATE,
+                        Items.GOLD_PLATE, Items.THORIUM_PLATE)
+                .register();
 
         new Research(new NamespacedKey(this, "rubber"),
-            696977, "橡胶", 25)
-            .addItems(Items.RUBBER)
-            .register();
+                696977, "橡胶", 25)
+                .addItems(Items.RUBBER)
+                .register();
 
         new Research(new NamespacedKey(this, "circuits"),
-            696978, "电路", 25)
-            .addItems(Items.ELECTRONIC_CIRCUIT, Items.ADVANCED_CIRCUIT)
-            .register();
+                696978, "电路", 25)
+                .addItems(Items.ELECTRONIC_CIRCUIT, Items.ADVANCED_CIRCUIT)
+                .register();
 
         new Research(new NamespacedKey(this, "reinforcement_is_coming"),
-            696979, "强化降临", 15)
-            .addItems(Items.REINFORCED_DOOR, Items.REINFORCED_GLASS, Items.REINFORCED_STONE)
-            .register();
+                696979, "强化降临", 15)
+                .addItems(Items.REINFORCED_DOOR, Items.REINFORCED_GLASS, Items.REINFORCED_STONE)
+                .register();
 
         new Research(new NamespacedKey(this, "only_glass"),
-            696980, "只有玻璃", 40)
-            .addItems(Items.GLASS_CUTTER)
-            .register();
+                696980, "只有玻璃", 40)
+                .addItems(Items.GLASS_CUTTER)
+                .register();
 
         new Research(new NamespacedKey(this, "machine_blocks"),
-            696981, "机器方块", 35)
-            .addItems(Items.MACHINE_BLOCK, Items.ADVANCED_MACHINE_BLOCK)
-            .register();
+                696981, "机器方块", 35)
+                .addItems(Items.MACHINE_BLOCK, Items.ADVANCED_MACHINE_BLOCK)
+                .register();
 
         new Research(new NamespacedKey(this, "coal_mesh"),
-            696982, "碳网", 30)
-            .addItems(Items.COAL_DUST, Items.RAW_CARBON_MESH, Items.RAW_CARBON_FIBRE, Items.CARBON_PLATE)
-            .register();
+                696982, "碳网", 30)
+                .addItems(Items.COAL_DUST, Items.RAW_CARBON_MESH, Items.RAW_CARBON_FIBRE, Items.CARBON_PLATE)
+                .register();
 
         new Research(new NamespacedKey(this, "what_are_these_cables"),
-            696983, "这些是什么导线?", 25)
-            .addItems(Items.UNINSULATED_COPPER_CABLE, Items.COPPER_CABLE,
-                    Items.UNINSULATED_TIN_CABLE, Items.TIN_CABLE,
-                    Items.UNINSULATED_GOLD_CABLE, Items.GOLD_CABLE)
-            .register();
+                696983, "这些是什么导线?", 25)
+                .addItems(Items.UNINSULATED_COPPER_CABLE, Items.COPPER_CABLE,
+                        Items.UNINSULATED_TIN_CABLE, Items.TIN_CABLE,
+                        Items.UNINSULATED_GOLD_CABLE, Items.GOLD_CABLE)
+                .register();
 
         new Research(new NamespacedKey(this, "triple_a"),
-            696984, "3A", 20)
-            .addItems(Items.RE_BATTERY)
-            .register();
+                696984, "3A", 20)
+                .addItems(Items.RE_BATTERY)
+                .register();
 
         new Research(new NamespacedKey(this, "casing"),
-            696985, "S 340", 20)
-            .addItems(Items.TIN_ITEM_CASING, Items.COPPER_ITEM_CASING)
-            .register();
+                696985, "S 340", 20)
+                .addItems(Items.TIN_ITEM_CASING, Items.COPPER_ITEM_CASING)
+                .register();
 
         new Research(new NamespacedKey(this, "solar_helmets"),
-            696986, "更多的太阳能头盔", 30)
-            .addItems(Items.HYBRID_SOLAR_HELMET, Items.ADVANCED_SOLAR_HELMET, Items.ADVANCEDLX_SOLAR_HELMET,
-                Items.CARBONADO_SOLAR_HELMET, Items.ENERGIZED_SOLAR_HELMET, Items.ULTIMATE_SOLAR_HELMET)
-            .register();
+                696986, "更多的太阳能头盔", 30)
+                .addItems(Items.HYBRID_SOLAR_HELMET, Items.ADVANCED_SOLAR_HELMET, Items.ADVANCEDLX_SOLAR_HELMET,
+                        Items.CARBONADO_SOLAR_HELMET, Items.ENERGIZED_SOLAR_HELMET, Items.ULTIMATE_SOLAR_HELMET)
+                .register();
     }
 
     private void forceMetricsPush(@Nonnull Metrics metrics) {

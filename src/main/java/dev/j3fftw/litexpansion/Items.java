@@ -556,12 +556,12 @@ public final class Items {
 
 
     static {
-        ADVANCED_SOLAR_HELMET.addEnchantment(Enchantment.DURABILITY, 1);
-        CARBONADO_SOLAR_HELMET.addEnchantment(Enchantment.DURABILITY, 2);
-        ENERGIZED_SOLAR_HELMET.addEnchantment(Enchantment.DURABILITY, 3);
-        ADVANCEDLX_SOLAR_HELMET.addUnsafeEnchantment(Enchantment.DURABILITY, 4);
-        HYBRID_SOLAR_HELMET.addUnsafeEnchantment(Enchantment.DURABILITY, 5);
-        ULTIMATE_SOLAR_HELMET.addUnsafeEnchantment(Enchantment.DURABILITY, 6);
+        ADVANCED_SOLAR_HELMET.addEnchantment(Enchantment.UNBREAKING, 1);
+        CARBONADO_SOLAR_HELMET.addEnchantment(Enchantment.UNBREAKING, 2);
+        ENERGIZED_SOLAR_HELMET.addEnchantment(Enchantment.UNBREAKING, 3);
+        ADVANCEDLX_SOLAR_HELMET.addUnsafeEnchantment(Enchantment.UNBREAKING, 4);
+        HYBRID_SOLAR_HELMET.addUnsafeEnchantment(Enchantment.UNBREAKING, 5);
+        ULTIMATE_SOLAR_HELMET.addUnsafeEnchantment(Enchantment.UNBREAKING, 6);
 
     }
 
