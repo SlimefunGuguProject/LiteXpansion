@@ -4,11 +4,7 @@ LiteXpansion 是一个 Slimefun4 的附属插件，继承了来自 SlimeXpansion
 
 ## :floppy_disk: 下载
 
-<p align="center">
-  <a href="https://builds.guizhanss.com/SlimefunGuguProject/LiteXpansion/master">
-    <img src="https://builds.guizhanss.com/f/SlimefunGuguProject/LiteXpansion/master/badge.svg" alt="Build status"/>
-  </a>
-</p>
+[下载 LiteXpansion](https://resources.guizhanss.com/plugin/LiteXpansion)
 
 ## :gear: 配置
 
